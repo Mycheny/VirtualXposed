@@ -27,7 +27,7 @@ android {
     defaultConfig {
         applicationId "io.va.exposed"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 28
         versionCode 172
         versionName "0.17.2"
         multiDexEnabled false
@@ -104,4 +104,5 @@ dependencies {
         exclude(group: "com.android.support")
     }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'org.testng:testng:6.9.6'
 }

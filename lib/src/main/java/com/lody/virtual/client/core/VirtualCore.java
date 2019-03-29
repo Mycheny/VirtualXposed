@@ -47,6 +47,7 @@ import com.lody.virtual.os.VUserHandle;
 import com.lody.virtual.remote.InstallResult;
 import com.lody.virtual.remote.InstalledAppInfo;
 import com.lody.virtual.server.IAppManager;
+import com.lody.virtual.server.ServiceCache;
 import com.lody.virtual.server.interfaces.IAppRequestListener;
 import com.lody.virtual.server.interfaces.IPackageObserver;
 import com.lody.virtual.server.interfaces.IUiCallback;
@@ -186,13 +187,14 @@ public final class VirtualCore {
             }
             Reflection.unseal(context);
 
-            VASettings.STUB_CP_AUTHORITY = context.getPackageName() + "." + VASettings.STUB_DEF_AUTHORITY;
-            ServiceManagerNative.SERVICE_CP_AUTH = context.getPackageName() + "." + ServiceManagerNative.SERVICE_DEF_AUTH;
+            VASettings.STUB_CP_AUTHORITY = context.getPackageName() + "." + VASettings.STUB_DEF_AUTHORITY;  // 用来启动虚拟VAppProcess
+            ServiceManagerNative.SERVICE_CP_AUTH = context.getPackageName() + "." + ServiceManagerNative.SERVICE_DEF_AUTH;  // 用来启动ServerProcess进程
             this.context = context;
-            mainThread = ActivityThread.currentActivityThread.call();
+            mainThread = ActivityThread.currentActivityThread.call();  // 通过反射获取的ActivityThread的实例
             unHookPackageManager = context.getPackageManager();
             hostPkgInfo = unHookPackageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_PROVIDERS);
-            detectProcessType();
+
+            detectProcessType(); // IPCBus进行初始化以及判断现在进程的类型
             InvocationStubManager invocationStubManager = InvocationStubManager.getInstance();
             invocationStubManager.init();
             invocationStubManager.injectAll();

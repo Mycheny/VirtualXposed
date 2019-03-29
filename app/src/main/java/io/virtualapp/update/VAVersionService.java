@@ -37,7 +37,8 @@ public class VAVersionService extends AVersionService {
         AllenChecker.init(false);
     }
 
-    public static final String CHECK_VERION_URL = "http://vaexposed.weishu.me/update.json";
+//    public static final String CHECK_VERION_URL = "http://vaexposed.weishu.me/update.json";
+    public static final String CHECK_VERION_URL = "http://212.129.149.195/update.json";
 
     @Override
     public void onResponses(AVersionService service, String response) {
